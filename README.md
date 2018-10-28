@@ -3,6 +3,10 @@
 The experiments are done within Jupyter notebooks. The notebooks are pieces of Python code with markdown texts as 
 commentary. All remarks are welcome. 
 
+## Variational Autoencoder
+
+The variational autoencoder is obtained from a Keras tutorial. There were a few mistakes (as far as I could see). For example confusion between log_sigma and log_variance. This however only amounts to a factor of two somewhere. More problematic was that the tutorial didn't lead to good performance. Hence, the Python code in this [example](https://github.com/keras-team/keras/blob/master/examples/variational_autoencoder.py) has been used to make it performing well.
+
 # Installation 
 
 You need to install Tensorflow, Keras, Python, SciPy/NumPy, Jupyter. Use e.g. pip3 to make installation a little bit less
