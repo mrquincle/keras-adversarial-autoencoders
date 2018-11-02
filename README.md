@@ -55,7 +55,15 @@ We might perform dimensionality reduction and for example use t-SNE to map to a 
 
 ## Sparse Autoencoder
 
-A sparse autoencoder is similar to the ordinary autoencoder, but enforces sparsity through an "activity regularizer". On the [Keras blog](https://blog.keras.io/building-autoencoders-in-keras.html) there is an example of a L1 regularizer. In the paper "Deep Learning of Part-based Representation of Data Using Sparse Autoencoders with Nonnegativity Constraints" by Hosseini-Asl et al. this is done by minimizing the KL divergence between the average activity of hidden units and a predefined parameter, p. The final cost function is than a weighted sum of the reconstruction error and the KL divergence. This is normally weighted through a Lagrange multiplier, beta, multiplied by the KL divergence terms. For MNIST digits, an L1 regularizer is used with lambda = 10e-8. If I choose 10e-5 the results are blurry. Regretfully with a KL divergence using common parameters from the literature (like p = 0.1 and beta = 3) or as mentioned in the above paper (p = 0.05 and beta = 3) I also get blurry reconstructions.
+A sparse autoencoder is similar to the ordinary autoencoder, but enforces sparsity through an "activity regularizer". On the [Keras blog](https://blog.keras.io/building-autoencoders-in-keras.html) there is an example of a L1 regularizer. In the paper "Deep Learning of Part-based Representation of Data Using Sparse Autoencoders with Nonnegativity Constraints" by Hosseini-Asl et al. this is done by minimizing the KL divergence between the average activity of hidden units and a predefined parameter, p (both assumed to be Bernoulli random variables). The final cost function is than a weighted sum of the reconstruction error and the KL divergence. This is normally weighted through a Lagrange multiplier, beta, multiplied by the KL divergence terms. For MNIST digits, an L1 regularizer is used with lambda = 10e-8. If I choose 10e-5 the results are blurry. Regretfully with a KL divergence using common parameters from the literature (like p = 0.1 and beta = 3) or as mentioned in the above paper (p = 0.05 and beta = 3) I also get blurry reconstructions. If I use the mean in the KL term rather than the sum, it also leads to sharper images again. And it is sparse: encoded_imgs.mean() is only 0.012 (using Adam and MSE and p = 0.01, beta = 6). There is still some stuff to figure out here...
+
+![Sparse Autoencoder Reconstruction](https://raw.githubusercontent.com/mrquincle/keras-adversarial-autoencoders/master/results/sparse_reconstruction.png)
+
+The scatterplot:
+
+![Sparse Autoencoder Scatterplot](https://raw.githubusercontent.com/mrquincle/keras-adversarial-autoencoders/master/results/sparse_scatterplot.png)
+
+Nice to see that for most digits at least one of the first two nodes in the latent layer are indeed zero.
 
 # Installation 
 
