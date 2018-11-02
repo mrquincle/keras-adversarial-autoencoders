@@ -5,7 +5,41 @@ commentary. All remarks are welcome.
 
 ## Variational Autoencoder
 
-The variational autoencoder is obtained from a Keras tutorial. There were a few mistakes (as far as I could see). For example confusion between log_sigma and log_variance. This however only amounts to a factor of two somewhere. More problematic was that the tutorial didn't lead to good performance. Hence, the Python code in this [example](https://github.com/keras-team/keras/blob/master/examples/variational_autoencoder.py) has been used to make it performing well.
+The variational autoencoder is obtained from a [Keras blog post](https://blog.keras.io/building-autoencoders-in-keras.html). There have been a few adaptations. 
+
+* There is confusion between `log_sigma` and `log_variance`. The sampling function expected standard deviation as input, but got variance as input. The variable name has been adjusted from `log_sigma` to `log_variance` and the function has been adapted: `K.exp(z_log_variance / 2)` rather than `K.exp(z_log_sigma)`. 
+* The loss has been adjusted so that the loss is a larger number. The variable `xent_loss` is multiplied with `original_dim` and for the `kl_loss`, rather than `K.mean`, we use `K.sum`. The ratio between `xent_loss` and `kl_loss` is not changed.
+
+The Python code in this other [Keras github example](https://github.com/keras-team/keras/blob/master/examples/variational_autoencoder.py) has been used to figure out what is going on.
+
+The results are often presented in the following manners. First, a visual inspection of the reconstruction of a familiar dataset, most often MNIST digits. Second, the test samples are encoded into the latent variable representation. The latent variables are then presented in a 2D scatterplot. Third, there is a sweep over the latent variable values to generate digits. The second and third presentations are especially useful if the encoder has only two latent variables. Then the presentation in a 2D scatterplot does not require any dimension reduction. The sweep over only two latent variables is also very easy to represent in 2D.
+
+The MNIST digits are reconstructed like this by a variational autoencoder:
+
+![Variational Autoencoder Reconstruction of Digits from MNIST](https://raw.githubusercontent.com/mrquincle/keras-adversarial-autoencoders/master/results/va_mnist.png)
+
+The scatterplot of the latent variable representation of the test set. It can be seen that similar digits are mapped to similar values in the latent space.
+
+![Variational Autoencoder Scatterplot Latent Variable Representations of Test Samples](https://raw.githubusercontent.com/mrquincle/keras-adversarial-autoencoders/master/results/va_scatterplot.png)
+
+Sweeping uniformly over the two latent variables in small increments shows how it generates shapes that really look like digits. Note that not every digit is represented equally in the latent layer. Especially the zero seems to occupy a lot of the latent space. By the way, in the MNIST training set all digits are more or less uniformly distributed:
+
+    5923 0
+    6742 1
+    5958 2
+    6131 3
+    5842 4
+    5421 5
+    5918 6
+    6265 7
+    5851 8
+    5949 9
+
+This is henceforth not an artifact of seeing zero more often in the dataset. 
+
+![Variational Autoencoder Latent Variable Sweep](https://raw.githubusercontent.com/mrquincle/keras-adversarial-autoencoders/master/results/va_latent_sweep.png)
+
+Now I'm thinking of this. It might be interesting to somehow get a grip on the amount of space is occupied by each digit. If there is somehow a competitive structure involved when an input leads to a sufficiently different representation that hitherto you might want to carve out some repelling area around it in the latent space. However, this will also mean that there will be more space dedicated to (unrealistic) transitions between digits. That would be a waste of latent space.
 
 # Installation 
 
