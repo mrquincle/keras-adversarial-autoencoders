@@ -39,7 +39,7 @@ This is henceforth not an artifact of seeing zero more often in the dataset.
 
 ![Variational Autoencoder Latent Variable Sweep](https://raw.githubusercontent.com/mrquincle/keras-adversarial-autoencoders/master/results/va_latent_sweep.png)
 
-Now I'm thinking of this. It might be interesting to somehow get a grip on the amount of space is occupied by each digit. If there is somehow a competitive structure involved when an input leads to a sufficiently different representation that hitherto you might want to carve out some repelling area around it in the latent space. However, this will also mean that there will be more space dedicated to (unrealistic) transitions between digits. That would be a waste of latent space.
+Now I'm thinking of this... Thinking out loud... It might be interesting to somehow get a grip on the "amount of space" is occupied by each digit. Assume there is a competitive structure involved. Suppose an input leads to a vastly different representation. (It is a different digit!) Now we "carve out" some repelling area around it in the latent space (by that competitive mechanism). This would mean that any sufficiently different structure would get equal say in the latent space. The only exception would be completely different manners of writing of the same digit. There is a problem with this however. It would also mean that there will be more space dedicated to (unrealistic) transitions between digits. That would be a waste of latent space.
 
 # Installation 
 
