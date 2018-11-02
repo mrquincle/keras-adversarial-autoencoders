@@ -53,6 +53,10 @@ The quality of the latent representation is harder to check using a scatterplot.
 
 We might perform dimensionality reduction and for example use t-SNE to map to a 2D space. However, this is much more indirect than in the case that there are only two latent variables. If there is still not structure observed, it might be just an artifact of how t-SNE performs dimensionality reduction (not indicating the quality of the latent variable representation).
 
+## Sparse Autoencoder
+
+A sparse autoencoder is similar to the ordinary autoencoder, but enforces sparsity through an "activity regularizer". On the [Keras blog](https://blog.keras.io/building-autoencoders-in-keras.html) there is an example of a L1 regularizer. In the paper "Deep Learning of Part-based Representation of Data Using Sparse Autoencoders with Nonnegativity Constraints" by Hosseini-Asl et al. this is done by minimizing the KL divergence between the average activity of hidden units and a predefined parameter, p. The final cost function is than a weighted sum of the reconstruction error and the KL divergence. This is normally weighted through a Lagrange multiplier, beta, multiplied by the KL divergence terms. For MNIST digits, an L1 regularizer is used with lambda = 10e-8. If I choose 10e-5 the results are blurry. Regretfully with a KL divergence using common parameters from the literature (like p = 0.1 and beta = 3) or as mentioned in the above paper (p = 0.05 and beta = 3) I also get blurry reconstructions.
+
 # Installation 
 
 You need to install Tensorflow, Keras, Python, SciPy/NumPy, Jupyter. Use e.g. pip3 to make installation a little bit less
