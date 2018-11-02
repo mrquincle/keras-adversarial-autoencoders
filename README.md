@@ -41,6 +41,18 @@ This is henceforth not an artifact of seeing zero more often in the dataset.
 
 Now I'm thinking of this... Thinking out loud... It might be interesting to somehow get a grip on the "amount of space" is occupied by each digit. Assume there is a competitive structure involved. Suppose an input leads to a vastly different representation. (It is a different digit!) Now we "carve out" some repelling area around it in the latent space (by that competitive mechanism). This would mean that any sufficiently different structure would get equal say in the latent space. The only exception would be completely different manners of writing of the same digit. There is a problem with this however. It would also mean that there will be more space dedicated to (unrealistic) transitions between digits. That would be a waste of latent space.
 
+## Ordinary Autoencoder
+
+An "ordinary" autoencoder has been trained with a latent variable layer of 32 nodes (rather than 2 as in the variational autoencoder above). The reconstruction is similar to that of the variational autoencoder (using visual inspection):
+
+![Ordinary Autoencoder Reconstruction](https://raw.githubusercontent.com/mrquincle/keras-adversarial-autoencoders/master/results/autoencoder_reconstruction.png)
+
+The quality of the latent representation is harder to check using a scatterplot. For example, if we just use the test samples to see how they influence the first two latent variable nodes, there is not much structure to observe:
+
+![Ordinary Autoencoder Scatterplot](https://raw.githubusercontent.com/mrquincle/keras-adversarial-autoencoders/master/results/autoencoder_scatterplot.png)
+
+We might perform dimensionality reduction and for example use t-SNE to map to a 2D space. However, this is much more indirect than in the case that there are only two latent variables. If there is still not structure observed, it might be just an artifact of how t-SNE performs dimensionality reduction (not indicating the quality of the latent variable representation).
+
 # Installation 
 
 You need to install Tensorflow, Keras, Python, SciPy/NumPy, Jupyter. Use e.g. pip3 to make installation a little bit less
