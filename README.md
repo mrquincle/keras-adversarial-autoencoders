@@ -71,6 +71,13 @@ The scatterplot:
 
 Nice to see that for most digits at least one of the first two nodes in the latent layer are indeed zero.
 
+## Nonnegative Autoencoder
+
+An adaptation to the Sparse Autoencoder with a nonnegative constraint rather than a weight decay term can be found 
+in this [notebook](https://github.com/mrquincle/keras-adversarial-autoencoders/blob/master/experiments/Nonnegative%20Autoencoder.ipynb).
+
+![Nonnegative Autoencoder Reconstruction](https://raw.githubusercontent.com/mrquincle/keras-adversarial-autoencoders/master/results/nonnegative_reconstruction.png)
+
 # Installation 
 
 You need to install Tensorflow, Keras, Python, SciPy/NumPy, Jupyter. Use e.g. pip3 to make installation a little bit less
